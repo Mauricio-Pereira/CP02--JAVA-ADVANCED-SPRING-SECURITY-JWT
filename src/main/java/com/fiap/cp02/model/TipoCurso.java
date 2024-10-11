@@ -10,4 +10,8 @@ public enum TipoCurso{
         this.tipoCurso = tipoCurso;
     }
 
+    public String getTipoCurso() {
+        return tipoCurso;
+    }
+
 }

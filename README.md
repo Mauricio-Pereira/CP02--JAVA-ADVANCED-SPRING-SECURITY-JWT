@@ -24,10 +24,13 @@ Este projeto é uma API RESTful desenvolvida em Java utilizando Spring Boot. A A
 - Postman
 
 ### Configuração do Banco de Dados
-O projeto utiliza o banco de dados H2 em memória para desenvolvimento e testes. A configuração do banco de dados pode ser encontrada no arquivo `application.properties`.
+O projeto utiliza o banco de dados H2 em memória para desenvolvimento e testes. A configuração do banco de dados pode ser encontrada no arquivo `application.properties`.  
+O arquivo `application.properties` contém as configurações do banco de dados Oracle e caso necessário, altere as configurações de acordo com o banco de dados desejado.  
+**OBS.:** Caso deseje utilizar o banco de dados Oracle, é necessário adicionar a dependência do driver Oracle no arquivo `build.gradle`.
 
 ### Variáveis de Ambiente
-Certifique-se de definir a variável de ambiente `JWT_SECRET` com a chave secreta para geração de tokens JWT.
+Certifique-se de definir a variável de ambiente `JWT_SECRET` com a chave secreta para geração de tokens JWT.  
+Caso escolha utilizar o banco de dados Oracle, defina as variáveis de ambiente `dbUser` e `dbPassword` com as informações de conexão do banco de dados Oracle.
 
 ## Executando o Projeto
 1. Clone o repositório:
@@ -40,6 +43,8 @@ Certifique-se de definir a variável de ambiente `JWT_SECRET` com a chave secret
    ```sh
    ./gradlew bootRun
    ```
+   ou utilize o inicializador da IDE de sua preferência.  
+
 
 3. Acesse a aplicação em `http://localhost:8080`.
 
@@ -65,5 +70,13 @@ Certifique-se de definir a variável de ambiente `JWT_SECRET` com a chave secret
 
 
 ## Utilização do Postman
-Para facilitar o uso da API, uma coleção do Postman (`postman/CP02.postman_collection.json`) está disponível no repositório. Importe a coleção no Postman e configure a variável `base_url` para `http://localhost:8080`.
+Para facilitar o uso da API, uma coleção do Postman (`postman/CP02.postman_collection.json`) está disponível no repositório.  
+Importe a coleção no Postman e configure a variável `base_url` para `http://localhost:8080`.  
+A coleção contém exemplos de requisições para todos os endpoints da API, porém é necessário autenticar um usuário e obter um token JWT para acessar os endpoints protegidos.  
+Algumas alterações podem ser necessárias, como os id para os endpoints de PUT, DELETE e GET por ID.
 
+
+## JWT Token
+Para acessar os endpoints protegidos, é necessário incluir o token JWT no cabeçalho da requisição.   
+O token JWT é gerado ao autenticar um usuário com sucesso no endpoint `POST /auth/login` e expira em 2 horas.
+O token JWT deve ser incluído no cabeçalho da requisição com a chave `Authorization` e o valor `Bearer <TOKEN>`.  
